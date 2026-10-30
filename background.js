@@ -1,3 +1,6 @@
-chrome.action.onClicked.addListener(() => {
-    console.log("DOM Capturer activated!");
+chrome.action.onClicked.addListener((tab) => {
+    chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        files: ["picker.js"]
+    });
 });
