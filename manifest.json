@@ -2,5 +2,13 @@
   "manifest_version": 3,
   "name": "DOM Capturer",
   "version": "0.1.0",
-  "description": "Capture full DOM elements as PNG screenshots."
+  "description": "Capture full DOM elements as PNG screenshots.",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {}
 }
