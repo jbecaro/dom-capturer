@@ -30,6 +30,11 @@ function handleClick(event) {
     // cleaning up
     document.removeEventListener("click", handleClick, true);
     document.removeEventListener("mouseover", handleMouseOver);
+
+    // sending data
+    chrome.runtime.sendMessage({
+        type: "ELEMENT_SELECTED"
+    });
 }
 
 document.addEventListener("mouseover", handleMouseOver);

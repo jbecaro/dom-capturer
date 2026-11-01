@@ -4,3 +4,8 @@ chrome.action.onClicked.addListener((tab) => {
         files: ["picker.js"]
     });
 });
+
+// check if the message is received
+chrome.runtime.onMessage.addListener((message, sender) => {
+    console.log("Message received:", message);
+});
