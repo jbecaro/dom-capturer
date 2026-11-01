@@ -11,4 +11,15 @@ function handleMouseOver(event) {
     previousElement = event.target;
 }
 
+function handleClick(event) {
+    // temporary evade target's browser and webpage events
+    event.preventDefault();
+    event.stopPropagation();
+
+    // cleaning up
+    document.removeEventListener("click", handleClick, true);
+    document.removeEventListener("mouseover", handleMouseOver);
+}
+
 document.addEventListener("mouseover", handleMouseOver);
+document.addEventListener("click", handleClick, true);
