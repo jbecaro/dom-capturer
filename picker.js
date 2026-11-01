@@ -15,6 +15,17 @@ function handleClick(event) {
     // temporary evade target's browser and webpage events
     event.preventDefault();
     event.stopPropagation();
+    
+    const element = event.target;
+
+    // domain expansion!!
+    element.style.setProperty(
+        "height",
+        `${element.scrollHeight}px`,
+        "important"
+    );
+
+    console.log("Expanded height:", element.style.height);
 
     // cleaning up
     document.removeEventListener("click", handleClick, true);
