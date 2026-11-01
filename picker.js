@@ -1,19 +1,14 @@
 let previousElement = null;
 
-// highlighting the hovered element
-document.addEventListener("mouseover", (event) => {
-    if (previousElement) {
-        previousElement.style.outline = "";
-    }
+function handleMouseOver(event) {
+    // clearing backtrack
+    if (previousElement) previousElement.style.outline = "";
 
+    // adding highlight
     event.target.style.outline = "2px solid blue";
 
+    // updates previousElement
     previousElement = event.target;
-});
+}
 
-// selecting element
-document.addEventListener("click", (event) => {
-    event.preventDefault();
-
-    console.log("Selected element:", event.target);
-});
+document.addEventListener("mouseover", handleMouseOver);
