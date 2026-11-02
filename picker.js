@@ -25,15 +25,20 @@ function handleClick(event) {
         "important"
     );
 
-    console.log("Expanded height:", element.style.height);
-
     // cleaning up
     document.removeEventListener("click", handleClick, true);
     document.removeEventListener("mouseover", handleMouseOver);
 
     // sending data
+    const rect = element.getBoundingClientRect();
     chrome.runtime.sendMessage({
-        type: "ELEMENT_SELECTED"
+        type: "ELEMENT_SELECTED",
+        rect: {
+            x: rect.x + window.scrollX,
+            y: rect.y + window.scrollY,
+            width: rect.width,
+            height: rect.height
+        }
     });
 }
 
