@@ -15,11 +15,13 @@ chrome.runtime.onMessage.addListener((message, sender) => {
 
 // creates the screenshot
 async function captureScreenshot(tabId, area) {
+        // prepping the artillery
         const target = {tabId};
         await chrome.debugger.attach(target, "1.3");
         await chrome.debugger.sendCommand(target, "Page.enable");
         await chrome.debugger.sendCommand(target, "Page.captureScreenshot");
 
+        // captures the screenshot
         const result = await chrome.debugger.sendCommand(
             target,
             "Page.captureScreenshot",
@@ -32,4 +34,12 @@ async function captureScreenshot(tabId, area) {
                 }
             }
         );
+
+        // downloads the screenshot
+        const imageUrl = `data:image/png;base64,${result.data}`;
+        await chrome.downloads.download({
+            url: imageUrl,
+            filename: "dom-capture.png",
+            saveAs: true
+        });
 }
