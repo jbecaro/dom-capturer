@@ -9,12 +9,27 @@ chrome.action.onClicked.addListener((tab) => {
 // check if the message is received
 chrome.runtime.onMessage.addListener((message, sender) => {
     if (message.type === "ELEMENT_SELECTED") {
-        attachDebugger(sender.tab.id)
+        captureScreenshot(sender.tab.id, message.rect)
     }
 });
 
-async function attachDebugger(tabId) {
+// creates the screenshot
+async function captureScreenshot(tabId, area) {
         const target = {tabId};
         await chrome.debugger.attach(target, "1.3");
-        console.log("Debugger attached!");
+        await chrome.debugger.sendCommand(target, "Page.enable");
+        await chrome.debugger.sendCommand(target, "Page.captureScreenshot");
+
+        const result = await chrome.debugger.sendCommand(
+            target,
+            "Page.captureScreenshot",
+            {
+                format: "png",
+                captureBeyondViewport: true,
+                clip: {
+                    ...area,
+                    scale: 1
+                }
+            }
+        );
 }
