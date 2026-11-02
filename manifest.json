@@ -5,7 +5,8 @@
   "description": "Capture full DOM elements as PNG screenshots.",
   "permissions": [
     "activeTab",
-    "scripting"
+    "scripting",
+    "debugger"
   ],
   "background": {
     "service_worker": "background.js"

@@ -9,9 +9,12 @@ chrome.action.onClicked.addListener((tab) => {
 // check if the message is received
 chrome.runtime.onMessage.addListener((message, sender) => {
     if (message.type === "ELEMENT_SELECTED") {
-        const tabId = sender.tab.id;
-        console.log("Tab ID:", tabId);
-        console.log("Message received:", message);
-        console.log("Sender:", sender);
+        attachDebugger(sender.tab.id)
     }
 });
+
+async function attachDebugger(tabId) {
+        const target = {tabId};
+        await chrome.debugger.attach(target, "1.3");
+        console.log("Debugger attached!");
+}
